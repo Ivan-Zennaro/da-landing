@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" role="img" aria-label="halfpast">
+  <circle cx="14" cy="20" r="11" fill="#8A2A35"/>
+  <circle cx="26" cy="20" r="11" fill="none" stroke="#8A2A35" stroke-width="2.5"/>
+  <text x="50" y="28" font-family="Poppins, system-ui, sans-serif" font-weight="700" font-size="22" fill="#2E2C29" letter-spacing="-0.5">halfpast</text>
+</svg>
