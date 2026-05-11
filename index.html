@@ -23,7 +23,7 @@
 
   <header class="header">
     <a class="logo" href="#top" aria-label="halfpast home">
-      <img class="logo-mark" src="assets/logo-mark.png" alt="" width="38" height="38">
+      <img class="logo-mark" src="assets/HalfpastLogo.svg" alt="" width="38" height="38">
       <span class="logo-word">halfpast</span>
     </a>
     <a class="header-cta" href="#join">Join the beta</a>
@@ -51,11 +51,13 @@
         </div>
 
         <div class="hero-art" aria-hidden="true">
-          <div class="phone phone--front">
-            <img src="assets/profile.jpeg" alt="" loading="eager" width="360" height="780">
+          <div class="phone phone--front" data-phone-pair>
+            <img class="phone-img phone-img--a" src="assets/profile.jpeg" alt="" loading="eager" width="360" height="780">
+            <img class="phone-img phone-img--b" src="assets/profile-fem.jpg" alt="" loading="lazy" width="360" height="780">
           </div>
-          <div class="phone phone--back">
-            <img src="assets/app-session.jpg" alt="" loading="lazy" width="360" height="780">
+          <div class="phone phone--back" data-phone-pair>
+            <img class="phone-img phone-img--a" src="assets/app-session.jpg" alt="" loading="lazy" width="360" height="780">
+            <img class="phone-img phone-img--b" src="assets/app-session-fem.jpg" alt="" loading="lazy" width="360" height="780">
           </div>
         </div>
       </div>
@@ -237,7 +239,7 @@
   <footer class="footer">
     <div class="container">
       <span class="footer-brand">
-        <img class="logo-mark logo-mark--sm" src="assets/logo-mark.png" alt="" width="30" height="30">
+        <img class="logo-mark logo-mark--sm" src="assets/HalfpastLogo.svg" alt="" width="30" height="30">
         halfpast
       </span>
       <span class="footer-meta">Built in Zurich · 2026</span>
