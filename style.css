@@ -962,10 +962,25 @@ h1, h2, h3, p, ul, ol { margin: 0; }
   .store-btn { justify-content: center; }
   .store-btn-wrapper { width: 100%; }
   .hero-grid { gap: var(--space-xl); }
-  .hero-art { display: block; height: 320px; }
-  .phone { width: 165px; border-radius: 22px; border-width: 6px; }
-  .phone--front { top: 20px; left: calc(50% - 140px); }
-  .phone--back { top: 55px; left: calc(50% - 24px); }
+
+  /* Mobile hero: single full-bleed phone screen as a card — no phone chrome, no overlap. */
+  .hero-art {
+    display: block;
+    height: auto;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+  .phone--front { display: none; }
+  .phone--back {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    border: none;
+    border-radius: 24px;
+  }
+  .hero-art:hover .phone--back { transform: none; }
 }
 
 @media (min-width: 640px) {
