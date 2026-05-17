@@ -864,6 +864,8 @@ h1, h2, h3, p, ul, ol { margin: 0; }
   color: var(--charcoal-900);
 }
 .footer-meta { color: var(--stone-600); }
+.footer-email { color: var(--stone-600); text-decoration: underline; }
+.footer-email:hover { color: var(--charcoal-900); }
 .footer-nav { display: flex; gap: var(--space-md); }
 .footer-nav a { color: var(--stone-600); text-decoration: none; }
 .footer-nav a:hover { color: var(--charcoal-900); }
