@@ -21,14 +21,39 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
   });
 });
 
-// Hero phones: crossfade between male and female mockups every few seconds.
+// Hero phones: desktop crossfades two pairs in sync; mobile shows one phone
+// that cycles through all four mockups so users see the same imagery.
 const phonePairs = document.querySelectorAll('[data-phone-pair]');
 if (phonePairs.length) {
-  let swapped = false;
-  setInterval(() => {
-    swapped = !swapped;
-    phonePairs.forEach((phone) => phone.classList.toggle('is-swapped', swapped));
-  }, 4000);
+  const mobileQuery = window.matchMedia('(max-width: 540px)');
+  const mobilePhone = document.querySelector('.phone--back');
+  let timer = null;
+
+  const startCycle = () => {
+    if (timer) clearInterval(timer);
+    phonePairs.forEach((phone) => {
+      phone.classList.remove('is-swapped');
+      delete phone.dataset.cycle;
+    });
+
+    if (mobileQuery.matches && mobilePhone) {
+      let idx = 0;
+      mobilePhone.dataset.cycle = '0';
+      timer = setInterval(() => {
+        idx = (idx + 1) % 4;
+        mobilePhone.dataset.cycle = String(idx);
+      }, 3000);
+    } else {
+      let swapped = false;
+      timer = setInterval(() => {
+        swapped = !swapped;
+        phonePairs.forEach((phone) => phone.classList.toggle('is-swapped', swapped));
+      }, 4000);
+    }
+  };
+
+  startCycle();
+  mobileQuery.addEventListener('change', startCycle);
 }
 
 // FAQ accordion: only one open at a time.

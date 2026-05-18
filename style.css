@@ -282,6 +282,7 @@ h1, h2, h3, p, ul, ol { margin: 0; }
   opacity: 0;
   transform: scale(1.03);
 }
+.phone .phone-img--mobile { display: none; }
 .phone.is-swapped .phone-img--a {
   opacity: 0;
   transform: scale(1.03);
@@ -983,6 +984,27 @@ h1, h2, h3, p, ul, ol { margin: 0; }
     border-radius: 24px;
   }
   .hero-art:hover .phone--back { transform: none; }
+
+  /* Mobile: cycle phone--back through all 4 images. */
+  .phone--back .phone-img--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  .phone--back[data-cycle="1"] .phone-img--a,
+  .phone--back[data-cycle="2"] .phone-img--a,
+  .phone--back[data-cycle="3"] .phone-img--a {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  .phone--back[data-cycle="1"] .phone-img--c { opacity: 1; transform: scale(1); }
+  .phone--back[data-cycle="2"] .phone-img--b { opacity: 1; transform: scale(1); }
+  .phone--back[data-cycle="3"] .phone-img--d { opacity: 1; transform: scale(1); }
 }
 
 @media (min-width: 640px) {
