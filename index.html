@@ -19,6 +19,46 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Google Analytics 4 with Consent Mode v2. -->
+  <script>
+    window.GA_MEASUREMENT_ID = 'G-8E07RNEHFG';
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+
+    // Default: deny everything until the user accepts. Required for GDPR / nFADP.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    // If the visitor already chose previously, apply that choice immediately.
+    try {
+      var stored = localStorage.getItem('halfpast_consent');
+      if (stored === 'granted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
+        });
+      }
+    } catch (e) { /* localStorage blocked — keep default deny */ }
+
+    gtag('js', new Date());
+    gtag('config', window.GA_MEASUREMENT_ID);
+
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_MEASUREMENT_ID;
+    document.head.appendChild(gaScript);
+  </script>
 </head>
 <body>
 
@@ -248,6 +288,20 @@
       <span class="footer-meta">Built in Zurich · 2026 · <a href="mailto:valuebased.da@gmail.com" class="footer-email">valuebased.da@gmail.com</a></span>
     </div>
   </footer>
+
+  <!-- Cookie consent banner. Hidden by default; script.js shows it when no choice is stored. -->
+  <div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <div class="consent-inner">
+      <p class="consent-text">
+        We use Google Analytics to understand how the page is used and improve it.
+        No tracking happens until you choose. See your choice as anonymous, aggregated data only.
+      </p>
+      <div class="consent-actions">
+        <button type="button" class="consent-btn consent-btn--reject" data-consent="denied">Decline</button>
+        <button type="button" class="consent-btn consent-btn--accept" data-consent="granted">Accept</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js" defer></script>
 </body>

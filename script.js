@@ -64,6 +64,92 @@ faqItems.forEach((item) => {
       faqItems.forEach((other) => {
         if (other !== item) other.open = false;
       });
+      track('faq_open', { question: item.querySelector('summary span')?.textContent?.trim() });
     }
   });
 });
+
+// ---------- Google Analytics: consent banner + event tracking ----------
+
+function track(name, params) {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', name, params || {});
+  }
+}
+
+// Consent banner: show only if the visitor hasn't chosen yet.
+const consentBanner = document.getElementById('consent');
+if (consentBanner) {
+  let stored = null;
+  try { stored = localStorage.getItem('halfpast_consent'); } catch (e) {}
+  if (!stored) consentBanner.hidden = false;
+
+  consentBanner.querySelectorAll('[data-consent]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const choice = btn.getAttribute('data-consent');
+      try { localStorage.setItem('halfpast_consent', choice); } catch (e) {}
+      if (typeof window.gtag === 'function') {
+        const value = choice === 'granted' ? 'granted' : 'denied';
+        window.gtag('consent', 'update', {
+          ad_storage: value,
+          ad_user_data: value,
+          ad_personalization: value,
+          analytics_storage: value
+        });
+      }
+      consentBanner.hidden = true;
+    });
+  });
+}
+
+// CTA click tracking. Walks up to the closest <section> to label the source.
+function sectionOf(el) {
+  const section = el.closest('section');
+  if (!section) return el.closest('header') ? 'header' : 'unknown';
+  return section.className.split(' ').find((c) => !c.includes('--')) || 'unknown';
+}
+
+document.querySelectorAll('.btn--primary, .store-btn, .header-cta').forEach((el) => {
+  if (el.classList.contains('store-btn--disabled')) return;
+  el.addEventListener('click', () => {
+    const isStore = el.classList.contains('store-btn');
+    const label = isStore
+      ? (el.querySelector('.store-btn-name')?.textContent?.trim() || 'store')
+      : (el.textContent?.trim() || 'cta');
+    track('cta_click', {
+      cta_label: label,
+      cta_location: sectionOf(el),
+      destination: el.getAttribute('href') || ''
+    });
+  });
+});
+
+// Footer email click.
+document.querySelectorAll('.footer-email').forEach((el) => {
+  el.addEventListener('click', () => {
+    track('email_click', { destination: el.getAttribute('href') || '' });
+  });
+});
+
+// Scroll depth: fire 25 / 50 / 75 / 100 once each.
+(function scrollDepth() {
+  const marks = [25, 50, 75, 100];
+  const fired = new Set();
+  let ticking = false;
+  function check() {
+    ticking = false;
+    const doc = document.documentElement;
+    const scrollable = doc.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    const pct = Math.round((window.scrollY / scrollable) * 100);
+    marks.forEach((m) => {
+      if (pct >= m && !fired.has(m)) {
+        fired.add(m);
+        track('scroll_depth', { percent: m });
+      }
+    });
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(check); ticking = true; }
+  }, { passive: true });
+})();
