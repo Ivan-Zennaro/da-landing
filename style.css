@@ -46,10 +46,13 @@
 
 html { scroll-behavior: smooth; }
 
+/* Scroll target for "Join the beta" — lands just above the download buttons */
+#join { scroll-margin-top: 96px; }
+
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 4  00;
   font-size: 16px;
   line-height: 1.5;
   background: var(--sand-100);
@@ -870,6 +873,17 @@ h1, h2, h3, p, ul, ol { margin: 0; }
 .footer-nav { display: flex; gap: var(--space-md); }
 .footer-nav a { color: var(--stone-600); text-decoration: none; }
 .footer-nav a:hover { color: var(--charcoal-900); }
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--stone-600);
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.footer-social:hover { color: var(--charcoal-900); }
+.footer-social svg { display: block; }
+.footer-social-label { font-size: 14px; }
 
 /* ---------- App store CTAs ---------- */
 .app-cta {
