@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(awk '{printf \"%-45s %10s\\\\n\", $NF, $5}')"
+      "Bash(awk '{printf \"%-45s %10s\\\\n\", $NF, $5}')",
+      "PowerShell(Get-ChildItem -Recurse -Include profile.jpg,profile-fem.jpg,profile.jpeg,profile-fem.jpeg,profile.png,profile-fem.png | Select-Object FullName, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}})"
     ]
   }
 }
